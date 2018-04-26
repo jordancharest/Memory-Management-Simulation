@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include <string>
 
 #include "process.hpp"
 
@@ -116,7 +116,7 @@ int defragmentation(std::vector<char> &mem_pool, Process &proc, int &t, int &sta
     t += time_added;
     defrag_time += (total_frames * T_MEMMOVE);
     std::cout << "time " << t << "ms: Defragmentation complete (moved " << total_frames << " frames:";
-    for (size_t i = 0; i < moved_frames.size(); i++) {
+    for (std::size_t i = 0; i < moved_frames.size(); i++) {
         std::cout << " " << moved_frames[i];
         if (i != moved_frames.size()-1) std::cout << ",";
     }
@@ -244,7 +244,7 @@ bool next_fit(std::vector<char> &mem_pool, std::vector<Process> &processes, Proc
                 break;
             }
 
-        } else
+         } else
             free_counter = 0;
     }
 
@@ -417,7 +417,8 @@ void contiguous_memory_allocation(std::vector<Process> &processes) {
     simulator(processes, "Best-Fit");
     std::cout << "\n";
 
-   simulator(processes, "Worst-Fit");
+	simulator(processes, "Worst-Fit");
+	std::cout << "\n";
 }
 
 

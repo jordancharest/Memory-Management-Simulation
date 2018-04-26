@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <list>
+#include <algorithm>
 
 
 #include "process.hpp"
@@ -32,6 +34,52 @@ void display_mem_pool(std::vector<char> &mem_pool) {
         std::cout << '=';
 
     std::cout << std::endl;
+}
+
+
+// ALPHABETICAL SORT ==============================================================================
+bool AB_sort(page_info &a, page_info &b) {
+	return (a.ID < b.ID);
+}
+
+// DISPLAY PAGES ================================================================================
+void display_pages(std::vector<char> &mem_pool, std::vector<std::vector<std::size_t>> &pages) {
+	int elements_per_row = 10;
+	// display notice
+	std::cout <<  "PAGE TABLE [page,frame]:\n";
+	
+	// sort in alphabetical order
+	std::list<page_info> page_infos;
+	for (std::size_t i = 0; i < pages.size(); i++) {
+		page_info temp;
+		temp.ID = mem_pool[pages[i][0]];
+		temp.index = i;
+		page_infos.push_back(temp);
+	}
+	page_infos.sort(AB_sort);
+
+	// display pages
+	std::list<page_info>::iterator it = page_infos.begin();
+	std::size_t j = 0;
+	while (it != page_infos.end()) {
+		std::size_t idx = it->index;
+		std::size_t pg_size = pages[idx].size();
+		for (j = 0; j < pg_size; j++) {
+			if (j == 0)
+				std::cout << it->ID << ": ";
+			else if (j % elements_per_row == 0)
+				std::cout << '\n';
+
+			std::cout << '[' << j << ',' << pages[idx][j] << ']';
+			
+
+			if ((j+1) % elements_per_row != 0 && j<pg_size-1)
+				std::cout << ' ';
+		}
+		if (j % elements_per_row != 0)
+			std::cout << '\n';
+		it++;
+	}
 }
 
 // PARSE INPUT ===================================================================================
@@ -110,7 +158,7 @@ int main(int argc, char** argv) {
 
     contiguous_memory_allocation(processes);
 
-
+	noncontiguous_memory_allocation(processes);
 
 
     return EXIT_SUCCESS;

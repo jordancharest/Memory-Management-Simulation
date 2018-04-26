@@ -7,6 +7,10 @@
 const int MEM_POOL_SIZE = 256;
 const int T_MEMMOVE = 1;
 
+struct page_info {
+	char ID;
+	int index;
+};
 
 // PROCESS CLASS =================================================================================
 class Process {
@@ -22,8 +26,8 @@ public:
     const int getNumBursts() const { return bursts; }
     const int getCurrentBurst() const { return current_burst; }
     const int getStartingFrame() const { return starting_frame; }
-    const int getArrTime(size_t index) const { return arrival_times.at(index); }
-    const int getRunTime(size_t index) const { return run_times.at(index); }
+    const int getArrTime(std::size_t index) const { return arrival_times.at(index); }
+    const int getRunTime(std::size_t index) const { return run_times.at(index); }
     const int getEndTime() const { return end_time; }
     const bool finished() const { return current_burst == bursts; }
 
@@ -57,6 +61,8 @@ private:
 void display_mem_pool(std::vector<char> &mem_pool);
 void contiguous_memory_allocation(std::vector<Process> &processes);
 
+void display_pages(std::vector<char> &mem_pool, std::vector<std::vector<std::size_t>> &pages);
+void noncontiguous_memory_allocation(std::vector<Process> &processes);
 
 
 #endif // PROCESS_HPP_INCLUDED

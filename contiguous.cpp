@@ -127,6 +127,7 @@ int defragmentation(std::vector<char> &mem_pool, Process &proc, int &t, int &sta
     for (; i < start_frame + proc.getNumFrames(); i++)
         mem_pool[i] = pid;
 
+
     std::cout << "time " << t << "ms: Placed process " << pid << ":\n";
     display_mem_pool(mem_pool);
 
@@ -217,6 +218,9 @@ bool next_fit(std::vector<char> &mem_pool, std::vector<Process> &processes, Proc
     if (frames_needed > 1)  std::cout << " frames)\n";
     else                    std::cout << " frame)\n";
 
+	if (frames_needed == 0)
+		return false;
+
     bool placed = false;
     int free_counter = 0;
     int total = 0;
@@ -248,11 +252,11 @@ bool next_fit(std::vector<char> &mem_pool, std::vector<Process> &processes, Proc
             free_counter = 0;
     }
 
-
+	total = 0;
     free_counter = 0;
     if (!placed) {
         // then search from the beginning of memory to the current frame
-        for (int i = 0; i < current_frame; i++) {
+        for (int i = 0; i < MEM_POOL_SIZE; i++) {
 
             // check if the frame is free
             if (mem_pool[i] == '.') {
@@ -306,6 +310,9 @@ bool best_or_worst_fit(std::string algorithm, std::vector<char> &mem_pool, std::
     std::cout << "time " << t << "ms: Process " << pid << " arrived (requires " << frames_needed;
     if (frames_needed > 1)  std::cout << " frames)\n";
     else                    std::cout << " frame)\n";
+
+	if (frames_needed == 0)
+		return false;
 
     // search the mem pool for <frames_needed> frames according to the best-fit paradigm
     start_frame = search_mem_pool(mem_pool, frames_needed, algorithm);
@@ -403,7 +410,8 @@ void simulator(std::vector<Process> processes, std::string algorithm) {
         t++;
     }
 
-    std::cout << "time " << (t-1) << "ms: Simulator ended (Contiguous -- " << algorithm << ")\n";
+
+    std::cout << "time " << (t==0?t:(t-1)) << "ms: Simulator ended (Contiguous -- " << algorithm << ")\n";
 }
 
 

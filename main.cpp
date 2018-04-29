@@ -76,7 +76,7 @@ void display_pages(std::vector<char> &mem_pool, std::vector<std::vector<std::siz
 			if ((j+1) % elements_per_row != 0 && j<pg_size-1)
 				std::cout << ' ';
 		}
-		if (j % elements_per_row != 0)
+		//if (j % elements_per_row != 0)
 			std::cout << '\n';
 		it++;
 	}

@@ -35,6 +35,9 @@ bool first_fit(std::vector<char> &mem_pool, std::vector< std::vector< std::size_
     if (frames_needed > 1)  std::cout << " frames)\n";
     else                    std::cout << " frame)\n";
 
+	if (frames_needed == 0)
+		return false;
+
     int total = 0;
 
 
@@ -45,7 +48,7 @@ bool first_fit(std::vector<char> &mem_pool, std::vector< std::vector< std::size_
            total++;
     }
 
-	if (total >= frames_needed) {
+	if (total >= frames_needed ) {
 		total = 0;
 		std::vector<std::size_t> page_temp;
 		for (std::size_t i = 0; i < MEM_POOL_SIZE; i++) {
@@ -137,7 +140,7 @@ void simulator_nc(std::vector<Process> processes, std::string algorithm) {
         t++;
     }
 
-    std::cout << "time " << (t-1) << "ms: Simulator ended (Non-contiguous)\n";
+    std::cout << "time " << (t == 0 ? t : (t - 1)) << "ms: Simulator ended (Non-contiguous)\n";
 }
 
 

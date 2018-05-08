@@ -15,7 +15,7 @@ The program expects a formatted input file following the following formatting ru
  
 An example input file may look something like this:
 ```
-\# example input file  <-- commented line
+# example input file  <-- commented line
 A 45 0/350 400/50
 B 28 0/2650
 C 58 0/950 1100/100

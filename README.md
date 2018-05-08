@@ -2,10 +2,10 @@
 The Memory Management Simulator simulates how an OS would manage process memory using three types of contiguous memory allocation schemes (Next Fit, Best Fit, and Worst Fit) and a non-contiguous memory allocation scheme.
 
 ## Compile and Run
+```
 g++ -std=c++11 *.cpp -o main.exe
-
-./main.exe \<input-file\>
-
+./main.exe <input-file>
+```
 ## Input File
 The program expects a formatted input file following the following formatting rules:
  - lines that that start with # are ignored
